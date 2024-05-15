@@ -1,0 +1,11 @@
+Model Information:
+* title:	Kiss Kiss Bang Bang
+* source:	https://sketchfab.com/3d-models/kiss-kiss-bang-bang-30f57e685cf546d3b957a5892d171339
+* author:	Amarveer (https://sketchfab.com/amarveer)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Kiss Kiss Bang Bang" (https://sketchfab.com/3d-models/kiss-kiss-bang-bang-30f57e685cf546d3b957a5892d171339) by Amarveer (https://sketchfab.com/amarveer) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
