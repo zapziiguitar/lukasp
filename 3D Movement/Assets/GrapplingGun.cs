@@ -59,9 +59,11 @@ public class GrapplingGun : MonoBehaviour
             joint.massScale = 4.5f;
 
             lr.positionCount = 2;
+            currentGrapplePosition = gunTip.position;
         }
     }
 
+    private Vector3 currentGrapplePosition;
 
     void StopGrapple()
     {
@@ -72,8 +74,9 @@ public class GrapplingGun : MonoBehaviour
     void DrawRope()
     {
         if (!joint) return;
+        currentGrapplePosition = Vector3.Lerp(currentGrapplePosition, GrapplePoint, Time.deltaTime * 8f);
         lr.SetPosition(index: 0, gunTip.position);
-        lr.SetPosition(index: 1, GrapplePoint);
+        lr.SetPosition(index: 1, currentGrapplePosition);
 
     }
 

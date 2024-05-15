@@ -5,9 +5,12 @@ using UnityEngine;
 public class RotateGun : MonoBehaviour
 {
     public GrapplingGun grappling;
+    
 
     private Quaternion desiredRotation;
     private float rotationSpeed = 5f;
+
+
     void Update()
     {
         if (!grappling.IsGrappling()) 
