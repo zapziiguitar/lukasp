@@ -1,1 +1,70 @@
 
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GrapplingRope : MonoBehaviour
+{
+    private LineRenderer lr;
+    public GrapplingGun grapplingGun;
+    public int quality;
+    private Vector3 currentGrapplePosition;
+    private SpringAnimation spring;
+    public float damper;
+    public float strength;
+    public float velocity;
+    public float waveCount;
+    public float waveHeight;
+    public AnimationCurve affectCurve;
+
+    void Awake()
+    {
+        lr = GetComponent<LineRenderer>();
+        spring = new SpringAnimation();
+        spring.SetTarget(0);    
+    }
+
+    void LateUpdate()
+    {
+        DrawRope();
+    }
+
+    
+    void DrawRope()
+    {
+        if (!grapplingGun.IsGrappling())
+        {
+            currentGrapplePosition = grapplingGun.gunTip.position;
+            spring.Reset();
+            if(lr.positionCount > 0)
+                lr.positionCount = 0;
+            return;
+        }
+
+        if(lr.positionCount == 0)
+        {
+            spring.SetVelocity(velocity);
+            lr.positionCount = quality++;
+        }
+        
+
+        spring.SetDamper(damper);
+        spring.SetStrength(strength);
+        spring.Update(Time.deltaTime);
+        
+        var grapplePoint = grapplingGun.GetGrapplePoint();
+        var gunTipPosition = grapplingGun.gunTip.position;
+        var up = Quaternion.LookRotation((grapplePoint - gunTipPosition).normalized) * Vector3.up;
+
+        currentGrapplePosition = Vector3.Lerp(currentGrapplePosition, grapplePoint, Time.deltaTime * 12f);
+
+        for(int i = 0; i < quality+1; i++)
+        {
+            var delta = i / (float)quality;
+            var offset = up * waveHeight * Mathf.Sin(delta * waveCount * Mathf.PI * spring.Value * affectCurve.Evaluate(delta));
+            lr.SetPosition(i, Vector3.Lerp(gunTipPosition, currentGrapplePosition, delta) + offset);
+        }
+
+
+    }
+}
