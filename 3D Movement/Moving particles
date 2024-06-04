@@ -1,0 +1,45 @@
+using UnityEngine;
+
+public class MovingParticleController : MonoBehaviour
+{
+    public ParticleSystem movingParticleSystem; // Reference to the ParticleSystem component
+    private PlayerMovement playerMovement; // Reference to the PlayerMovement script
+
+    void Start()
+    {
+        // Get the PlayerMovement component from the same GameObject
+        playerMovement = GetComponent<PlayerMovement>();
+        if (playerMovement == null)
+        {
+            Debug.LogError("PlayerMovement script not found on the same GameObject.");
+        }
+
+        // Ensure the ParticleSystem is assigned
+        if (movingParticleSystem == null)
+        {
+            Debug.LogError("ParticleSystem component not assigned in the Inspector.");
+        }
+    }
+
+    void Update()
+    {
+        if (playerMovement != null && movingParticleSystem != null)
+        {
+            // Check if the player's speed is greater than a small threshold (indicating movement)
+            if (playerMovement.GetComponent<Rigidbody>().velocity.magnitude > 0.1f)
+            {
+                if (!movingParticleSystem.isPlaying)
+                {
+                    movingParticleSystem.Play();
+                }
+            }
+            else
+            {
+                if (movingParticleSystem.isPlaying)
+                {
+                    movingParticleSystem.Stop();
+                }
+            }
+        }
+    }
+}
